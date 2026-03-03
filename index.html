@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BabysTHUMB</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #000;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* NAVBAR */
+.navbar {
+    width: 100%;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.message-icon {
+    font-size: 16px;
+    text-decoration: none;
+    color: white;
+    border: 2px solid white;
+    padding: 8px 16px;
+    border-radius: 50px;
+    transition: 0.3s ease;
+}
+
+.message-icon:hover {
+    background: white;
+    color: black;
+}
+
+/* GALLERY */
+.gallery {
+    width: 100%;
+    padding: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+/* THUMBNAIL BASE */
+.thumbnail {
+    width: 100%;
+    height: 250px;
+    background: #111;
+    border: 2px solid #222;
+    border-radius: 14px;
+    overflow: hidden;
+
+    opacity: 0;
+    transform: translateX(0) scale(0.95);
+    filter: blur(8px);
+
+    transition: 
+        transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.8s ease,
+        filter 0.8s ease,
+        border-color 0.3s ease;
+}
+
+/* Alternate Start Positions */
+.thumbnail.left {
+    transform: translateX(-120px) scale(0.95);
+}
+
+.thumbnail.right {
+    transform: translateX(120px) scale(0.95);
+}
+
+/* When Visible */
+.thumbnail.show {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    filter: blur(0);
+}
+
+/* Hover Upgrade */
+.thumbnail:hover {
+    transform: scale(1.05);
+    border-color: white;
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* SOCIALS */
+.socials {
+    width: 100%;
+    padding: 60px 0;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+.socials a {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    border: 2px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    transition: 0.3s ease;
+}
+
+.socials a:hover {
+    background: white;
+    color: black;
+}
+
+/* MOBILE */
+@media(max-width: 600px){
+    .navbar {
+        padding: 20px;
+    }
+
+    .gallery {
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .thumbnail {
+        height: 200px;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="logo">BabysTHUMB</div>
+    <a class="message-icon" href="mailto:babysthumb@gmail.com">MESSAGE</a>
+</div>
+
+<!-- GALLERY -->
+<div class="gallery">
+
+    <div class="thumbnail"><img src="20250713_145249.jpg" alt=""></div>
+    <div class="thumbnail"><img src="20250716_232552.jpg" alt=""></div>
+    <div class="thumbnail"><img src="20250721_215758.jpg" alt=""></div>
+    <div class="thumbnail"><img src="20250907_152158.jpg" alt=""></div>
+    <div class="thumbnail"><img src="20260227_112212.jpg" alt=""></div>
+    <div class="thumbnail"><img src="20260228_002100.jpg" alt=""></div>
+    <div class="thumbnail"><img src="thumb7.jpg" alt=""></div>
+    <div class="thumbnail"><img src="thumb8.jpg" alt=""></div>
+    <div class="thumbnail"><img src="thumb9.jpg" alt=""></div>
+    <div class="thumbnail"><img src="thumb10.jpg" alt=""></div>
+    <div class="thumbnail"><img src="thumb11.jpg" alt=""></div>
+    <div class="thumbnail"><img src="thumb12.jpg" alt=""></div>
+    <div class="thumbnail"><img src="thumb13.jpg" alt=""></div>
+    <div class="thumbnail"><img src="thumb14.jpg" alt=""></div>
+    <div class="thumbnail"><img src="thumb15.jpg" alt=""></div>
+
+</div>
+
+<!-- SOCIAL LINKS -->
+<div class="socials">
+    <a href="#" target="_blank">I</a>
+    <a href="#" target="_blank">Y</a>
+    <a href="#" target="_blank">T</a>
+    <a href="#" target="_blank">X</a>
+</div>
+
+<script>
+const thumbnails = document.querySelectorAll(".thumbnail");
+
+/* Alternate left & right automatically */
+thumbnails.forEach((thumb, index) => {
+    if(index % 2 === 0){
+        thumb.classList.add("left");
+    } else {
+        thumb.classList.add("right");
+    }
+});
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting){
+            entry.target.classList.add("show");
+        } else {
+            entry.target.classList.remove("show");
+        }
+    });
+}, {
+    threshold: 0.25
+});
+
+thumbnails.forEach(thumb => observer.observe(thumb));
+</script>
+
+</body>
+</html>
